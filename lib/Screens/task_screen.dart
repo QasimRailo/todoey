@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/Models/task_data.dart';
+import '../Models/task.dart';
+import '../Widgets/task_list.dart';
+import 'add_task_screen.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({Key? key}) : super(key: key);
@@ -13,7 +18,19 @@ class _TaskScreenState extends State<TaskScreen> {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) => AddTask(),
+                    // addTaskCallBack: (newTaskTitle) {
+                    //   print(newTaskTitle);
+                    //   setState(() {
+                    //     // tasks.add(Task(name: newTaskTitle));
+                    //     // Navigator.pop(context);
+                    //   });
+                    // },
+                  );
+        },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(Icons.add),
       ),
@@ -45,7 +62,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  "Todoey",
+                  "${Provider.of<TaskData>(context).Taskcount} Tasks",
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
@@ -66,28 +83,6 @@ class _TaskScreenState extends State<TaskScreen> {
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class taskList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [taskTile()],
-    );
-  }
-}
-
-class taskTile extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text("Body Building"),
-      trailing: Checkbox(
-        value: false,
-        onChanged: (bool? value) {},
       ),
     );
   }
